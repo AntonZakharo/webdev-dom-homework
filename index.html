@@ -64,8 +64,34 @@
   </body>
 
   <script>
-    "use strict";
-    // Код писать здесь
-    console.log("It works!");
+      const name = document.querySelector('.add-form-name');
+      const comment = document.querySelector('.add-form-text');
+      const addButton = document.querySelector('.add-form-button');
+      const comments = document.querySelector('.comments');
+      addButton.addEventListener('click', () => {
+        let date = new Date
+        let month = date.getMonth() + 1
+        const formattedMonth = month.toString().padStart(2, '0');
+
+        let newComment = `<li class="comment">
+          <div class="comment-header">
+            <div>${name.value}</div>
+            <div>${date.getDate().toString().padStart(2, '0')}.${formattedMonth}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}</div>
+          </div>
+          <div class="comment-body">  
+            <div class="comment-text">
+              ${comment.value}
+            </div>
+          </div>
+          <div class="comment-footer">
+            <div class="likes">
+              <span class="likes-counter">${0}</span>
+              <button class="like-button"></button>
+            </div>
+          </div>
+        </li>`
+        comments.innerHTML += newComment  
+      });
+
   </script>
 </html>

@@ -22,7 +22,7 @@
           <div class="comment-footer">
             <div class="likes">
               <span class="likes-counter">3</span>
-              <button class="like-button"></button>
+              <button data-index="0" class="like-button"></button>
             </div>
           </div>
         </li>
@@ -39,7 +39,7 @@
           <div class="comment-footer">
             <div class="likes">
               <span class="likes-counter">75</span>
-              <button class="like-button -active-like"></button>
+              <button data-index="1" class="like-button -active-like"></button>
             </div>
           </div>
         </li>
@@ -65,33 +65,90 @@
 
   <script>
       const name = document.querySelector('.add-form-name');
-      const comment = document.querySelector('.add-form-text');
+      const text = document.querySelector('.add-form-text');
       const addButton = document.querySelector('.add-form-button');
       const comments = document.querySelector('.comments');
-      addButton.addEventListener('click', () => {
-        let date = new Date
-        let month = date.getMonth() + 1
-        const formattedMonth = month.toString().padStart(2, '0');
+      
 
-        let newComment = `<li class="comment">
-          <div class="comment-header">
-            <div>${name.value}</div>
-            <div>${date.getDate().toString().padStart(2, '0')}.${formattedMonth}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}</div>
-          </div>
-          <div class="comment-body">  
-            <div class="comment-text">
-              ${comment.value}
+      let commentsArray = [
+        {name: 'Глеб Фокин', date: "12.02.22 12:18", comment: 'Это будет первый комментарий на этой странице', isLiked: false, likes: 3},
+        {name: 'Варвара Н.', date: "13.02.22 19:22", comment: 'Мне нравится как оформлена эта страница! ❤', isLiked: true, likes: 75}
+      ];
+      function renderComments() {
+        let commentsHtml = commentsArray.map((comment, index) => { 
+          if (comment.isLiked) {
+            let commentHtml = `<li class="comment">
+            <div class="comment-header">
+              <div>${comment.name}</div>
+              <div>${comment.date}</div>
             </div>
-          </div>
-          <div class="comment-footer">
-            <div class="likes">
-              <span class="likes-counter">${0}</span>
-              <button class="like-button"></button>
+            <div class="comment-body">  
+              <div class="comment-text">
+                ${comment.comment}
+              </div>
             </div>
-          </div>
-        </li>`
-        comments.innerHTML += newComment  
+            <div class="comment-footer">
+              <div class="likes">
+                <span class="likes-counter">${comment.likes}</span>
+                <button data-index="${index}" class="like-button -active-like"></button>
+              </div>
+            </div>
+          </li>`;
+          return commentHtml;
+          } else {
+            let commentHtml = `<li class="comment">
+            <div class="comment-header">
+              <div>${comment.name}</div>
+              <div>${comment.date}</div>
+            </div>
+            <div class="comment-body">  
+              <div class="comment-text">
+                ${comment.comment}
+              </div>
+            </div>
+            <div class="comment-footer">
+              <div class="likes">
+                <span class="likes-counter">${comment.likes}</span>
+                <button data-index="${index}" class="like-button"></button>
+              </div>
+            </div>
+          </li>`;
+          return commentHtml;
+          }
+        });
+        comments.innerHTML = commentsHtml.join('')
+        renderButtons()
+      };
+
+      function renderButtons() {
+        const likeButtons = document.querySelectorAll('.like-button');
+        likeButtons.forEach((likeButton) => {
+          likeButton.addEventListener('click', () => {  
+            let likeStatus = commentsArray[likeButton.dataset.index].isLiked;
+            if (likeStatus) {
+              commentsArray[likeButton.dataset.index].likes -= 1;
+            } else {
+              commentsArray[likeButton.dataset.index].likes += 1;
+            };
+            commentsArray[likeButton.dataset.index].isLiked = !likeStatus;
+            renderComments();
+          });
+        });
+      };
+
+
+      addButton.addEventListener('click', () => {
+        let date = new Date;
+        let month = date.getMonth() + 1;
+        const formattedMonth = month.toString().padStart(2, '0');
+        let fullDate = `${date.getDate().toString().padStart(2, '0')}.${formattedMonth}.${String(date.getFullYear()).slice(2, 4)} ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
+
+        commentsArray.push({name: name.value, date: fullDate, comment: text.value, isLiked: false, likes: 0});
+        renderComments();
       });
+      
+      renderButtons()
+      
 
   </script>
 </html>

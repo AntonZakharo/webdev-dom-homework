@@ -1,12 +1,12 @@
-import { renderButtons } from "./renderButtons.js";
-import { renderReply } from "./renderReply.js";
-import { commentsArray } from "./commentsArray.js";
+import { renderButtons } from './renderButtons.js';
+import { renderReply } from './renderReply.js';
+import { commentsArray } from './commentsArray.js';
 
 export function renderComments() {
-  const comments = document.querySelector(".comments");
-  let commentsHtml = commentsArray.map((comment, index) => {
-    if (comment.isLiked) {
-      let commentHtml = `<li data-index="${index}" class="comment">
+    const comments = document.querySelector('.comments');
+    let commentsHtml = commentsArray.map((comment, index) => {
+        if (comment.isLiked) {
+            let commentHtml = `<li data-index="${index}" class="comment">
             <div class="comment-header">
               <div>${comment.name}</div>
               <div>${comment.date}</div>
@@ -23,9 +23,9 @@ export function renderComments() {
               </div>
             </div>
           </li>`;
-      return commentHtml;
-    } else {
-      let commentHtml = `<li data-index="${index}" class="comment">
+            return commentHtml;
+        } else {
+            let commentHtml = `<li data-index="${index}" class="comment">
             <div class="comment-header">
               <div>${comment.name}</div>
               <div>${comment.date}</div>
@@ -42,10 +42,10 @@ export function renderComments() {
               </div>
             </div>
           </li>`;
-      return commentHtml;
-    }
-  });
-  comments.innerHTML = commentsHtml.join("");
-  renderReply();
-  renderButtons();
+            return commentHtml;
+        }
+    });
+    comments.innerHTML = commentsHtml.join('');
+    renderReply();
+    renderButtons();
 }

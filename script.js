@@ -1,5 +1,6 @@
-import { renderComments } from "/module/renderComments.js";
-import { commentsArray } from "/module/commentsArray.js";
+import { renderComments } from "./module/renderComments.js";
+import { commentsArray } from "./module/commentsArray.js";
+import { replaceDigits } from "./module/replace.js";
 
 const name = document.querySelector(".add-form-name");
 const addButton = document.querySelector(".add-form-button");
@@ -10,7 +11,7 @@ addButton.addEventListener("click", () => {
   const formattedMonth = month.toString().padStart(2, "0");
   let fullDate = `${date.getDate().toString().padStart(2, "0")}.${formattedMonth}.${String(date.getFullYear()).slice(2, 4)} ${date.getHours()}:${date.getMinutes().toString().padStart(2, "0")}`;
 
-  text.value = text.value.replaceAll(">", "&gt").replaceAll("<", "&lt");
+  text.value = replaceDigits(text.value);
   commentsArray.push({
     name: name.value,
     date: fullDate,

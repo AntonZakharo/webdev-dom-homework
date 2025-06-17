@@ -1,0 +1,9 @@
+# Игнорировать Prettier и ESLint конфиги
+.prettierrc
+.prettierignore
+.eslintrc
+.eslintignore
+.eslintrc.js
+.eslintrc.json
+.prettierrc.js
+.prettierrc.json

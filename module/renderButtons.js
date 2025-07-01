@@ -3,16 +3,21 @@ import { renderComments } from './renderComments.js';
 
 export function renderButtons() {
     const likeButtons = document.querySelectorAll('.like-button');
+
     likeButtons.forEach((likeButton) => {
         likeButton.addEventListener('click', (event) => {
             event.stopPropagation();
-            let likeStatus = commentsArray[likeButton.dataset.index].isLiked;
-            if (likeStatus) {
-                commentsArray[likeButton.dataset.index].likes -= 1;
+
+            const comment = commentsArray.find((item) => item.id == likeButton.dataset.index);
+            if (!comment) return;
+
+            if (comment.isLiked) {
+                comment.likes -= 1;
             } else {
-                commentsArray[likeButton.dataset.index].likes += 1;
+                comment.likes += 1;
             }
-            commentsArray[likeButton.dataset.index].isLiked = !likeStatus;
+            comment.isLiked = !comment.isLiked;
+
             renderComments();
         });
     });

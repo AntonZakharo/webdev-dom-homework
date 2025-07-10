@@ -68,14 +68,33 @@ body {
     font-size: 32px;
   }
 
+  @keyframes scaling {
+    from {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(2);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  
+
+.like-button {
+  all: unset;
+  cursor: pointer;
+}
+
+.like-button.animate {
+  animation: scaling 0.5s linear;
+  pointer-events: none;
+}
+
   .likes {
     display: flex;
     align-items: center;
-  }
-
-  .like-button {
-    all: unset;
-    cursor: pointer;
   }
 
   .likes-counter {

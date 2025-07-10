@@ -1,7 +1,10 @@
 import { addComment } from './module/addComment.js';
-import { loadComments } from './module/loadComments.js';
+import { fetchAndRenderComments } from './module/fetchAndRenderComments.js';
 
-loadComments();
+fetchAndRenderComments().then(() => {
+    const loading = document.querySelector('.page-loading');
+    loading.style.display = 'none';
+});
 
 const addButton = document.querySelector('.add-form-button');
 addButton.addEventListener('click', () => {

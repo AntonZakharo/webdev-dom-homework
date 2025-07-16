@@ -79,6 +79,25 @@ body {
       transform: scale(1);
     }
   }
+  @keyframes toRed {
+    from {
+      background-color: white;
+    }
+    50% {
+      background-color: #ff4c4c;
+    }
+    to {
+      background-color: white;
+    }
+  }
+  .add-form-name.animate {
+    animation: toRed 2s;
+    pointer-events: none;
+  }
+  .add-form-text.animate {
+    animation: toRed 2s;
+    pointer-events: none;
+  }
 
   
 

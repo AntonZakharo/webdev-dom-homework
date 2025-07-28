@@ -25,7 +25,7 @@ export function login(login, password) {
         });
 }
 
-export function register(login, password, name) {
+export function register(name, login, password) {
     fetch('https://wedev-api.sky.pro/api/user', {
         method: 'POST',
         body: JSON.stringify({
@@ -36,24 +36,19 @@ export function register(login, password, name) {
     })
         .then((response) => {
             if (response.status === 201) {
-                let token = response.user.token;
-                const storage = window.localStorage;
-                storage.setItem('token', token);
-                storage.setItem('login', login);
-                storage.setItem('password', password);
+                return response.json();
             } else {
                 if (response.status === 400) {
-                    throw new Error('Пользователь с таким логином уже сущетсвует');
+                    throw new Error('Пользователь с таким логином уже существует');
                 } else {
                     throw new Error('Что-то пошло не так');
                 }
             }
         })
-        .catch(() => {});
-}
-
-export let token = '';
-
-export function updateToken(newToken) {
-    token = newToken;
+        .then(() => {
+            window.location.replace(`../login.html`);
+        })
+        .catch((error) => {
+            alert(error);
+        });
 }

@@ -11,9 +11,10 @@ if (window.localStorage.getItem('token')) {
     const name = document.querySelector('.add-form-name');
     const text = document.querySelector('.add-form-text');
     enterButtons.style.display = 'none';
-    name.disabled = false;
     text.disabled = false;
     addFormButton.disabled = false;
+    name.value = 'Вы';
+    text.value = '';
 }
 
 const addButton = document.querySelector('.add-form-button');

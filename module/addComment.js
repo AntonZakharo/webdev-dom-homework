@@ -7,8 +7,11 @@ const form = document.querySelector('.add-form');
 const commentLoading = document.querySelector('.comment-loading');
 
 function postComment(newComment) {
-    fetch(`https://wedev-api.sky.pro/api/v1/anton-zakharov/comments`, {
+    fetch(`https://wedev-api.sky.pro/api/v2/anton-zakharov/comments`, {
         method: 'POST',
+        headers: {
+            Authorization: `Bearer ${window.localStorage.getItem('token')}`,
+        },
         body: JSON.stringify(newComment),
     })
         .then((response) => {
@@ -16,7 +19,7 @@ function postComment(newComment) {
                 return response.json();
             } else {
                 if (response.status == 400) {
-                    throw new Error('Имя и комментарий не должны быть короче 3-х символов');
+                    throw new Error('Kомментарий не должен быть короче 3-х символов');
                 } else if (response.status == 500) {
                     throw new Error('Сервер сломался, попробуй позже');
                 } else {
@@ -67,10 +70,7 @@ export async function addComment() {
     text.value = replaceDigits(text.value);
 
     const newComment = {
-        author: { name: name.value },
-        name: name.value,
         text: text.value,
-        forceError: true,
     };
 
     postComment(newComment);

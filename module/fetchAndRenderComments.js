@@ -2,7 +2,7 @@ import { renderComments } from './renderComments.js';
 import { updateComments } from './commentsArray.js';
 
 export function fetchAndRenderComments() {
-    return fetch(`https://wedev-api.sky.pro/api/v1/anton-zakharov/comments`)
+    return fetch(`https://wedev-api.sky.pro/api/v2/anton-zakharov/comments`)
         .then((response) => {
             if (response.status == 200) {
                 return response.json();

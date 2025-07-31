@@ -9,22 +9,28 @@
   <body>
     <div class="container">
       <h3 class="page-loading">Пожалуйста подождите, загрузка комментариев...</h3>
+      <div class="enter-buttons">
+        <button class="enter-button">Войти</button>
+        <button class="enter-button">Зарегистрироваться</button>
+      </div>
       <ul class="comments">
       </ul>
       <div class="add-form">
         <input
+          disabled="true"  
           type="text"
           class="add-form-name"
           placeholder="Введите ваше имя"
         />
         <textarea
+          disabled="true"
           type="textarea"
           class="add-form-text"
           placeholder="Введите ваш коментарий"
-          rows="4"
-        ></textarea>
+          rows="4"  
+        >Чтобы добавить комментарий войдите</textarea> 
         <div class="add-form-row">
-          <button class="add-form-button">Написать</button>
+          <button disabled="true" class="add-form-button">Написать</button>
         </div>
       </div>
       <h3 class="comment-loading">Добавление комментария...</h3>
